@@ -6,7 +6,6 @@
 package alquiler;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -32,7 +31,8 @@ public class Cliente {
     public Cliente(){
         Random aleatorio=new Random();
         
-        ArrayList<Character> nif=new ArrayList<>(9);
+        ArrayList<Character> nif=new ArrayList<>();
+        
         ArrayList<String> nombre=new ArrayList<>();
         nombre.add("Raul");
         nombre.add("Jose");
@@ -67,7 +67,7 @@ public class Cliente {
         
         //Entramos en un bucle for para seleccionar los numeros del nif. Al salir del bucle 
         //le damos una letra aleatoria
-        for(int x=0;x<nif.size()-1;x++){
+        for(int x=0;x<8;x++){
             numAlea=aleatorio.nextInt(10)+48;
             nif.add((char)numAlea);
         }
