@@ -82,5 +82,10 @@ public class VehiculoAlquilado {
     public void setTotalDiasAlquiler(int totalDiasAlquiler) {
         this.totalDiasAlquiler = totalDiasAlquiler;
     }
+
+    @Override
+    public String toString() {
+        return "VehiculoAlquilado{" + "cliente=" + cliente + ", vehiculo=" + vehiculo + ", diaAlquiler=" + diaAlquiler + ", mesAlquiler=" + mesAlquiler + ", anioAlquiler=" + anioAlquiler + ", totalDiasAlquiler=" + totalDiasAlquiler + '}';
+    }
     
 }
