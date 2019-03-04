@@ -19,35 +19,6 @@ public class Main {
         
         // la instancia easydrive de la clase Empresa
         Empresa easydrive = new Empresa("A-28-187189", "easy drive", "www.easydrive.com");
-        
-        // registro de los clientes de la empresa
-        easydrive.registrarCliente(new Cliente("85618927C", "Juan", "González López"));
-        easydrive.registrarCliente(new Cliente("67568991Y", "Luis", "Fernández Gómez"));
-
-        // registro de los vehículos de la empresa
-        easydrive.registrarVehiculo(new Vehiculo("4060TUR", "Skoda", "Fabia", "Blanco", 90.0, false));
-
-        easydrive.registrarVehiculo(new Vehiculo("4070DEP", "Ford", "Mustang",
-
-        "Rojo", 150.0, true));
-
-        easydrive.registrarVehiculo(new Vehiculo("4080TUR", "VW", "GTI", "Azul", 110.0, false));
-
-        easydrive.registrarVehiculo(new Vehiculo("4090TUR", "SEAT", "Ibiza", "Blanco", 90.0, false));
-
-        easydrive.registrarVehiculo(new Vehiculo("4100FUR", "Fiat", "Ducato", "Azul", 80.0, true));
-        
-        // imprime la relación de clientes de easydrive
-        easydrive.imprimirClientes();
-        
-        // imprime el catálogo de vehículos de easydrive
-        easydrive.imprimirVehiculos();
-        
-        //Generamos un solo cliente aleatorio
-        Cliente c1=new Cliente();
-        
-        //Generamos un solo vehiculo aleatorio
-        Vehiculo v1=new Vehiculo();
 
         //Generamos clientes aleatorios y los mostramos por pantalla
         easydrive.generarClientesAlea();
@@ -57,12 +28,28 @@ public class Main {
         easydrive.generarVehiculosAlea();
         easydrive.imprimirVehiculos();
         
+        //Solicitamos un nif, una matricula y el número de dias que queremos alquilar
+        //un vehiculo
+        System.out.println("Introduce un nif: ");
+        String nif=teclado.nextLine();
+        System.out.println("Introduce una matricula: ");
+        String matricula=teclado.nextLine();
+        System.out.println("Introduce numero de dias para alquilar un vehiculo: ");
+        int dias=teclado.nextInt();
+        
+        teclado.nextLine();
+        
+        //Alquilamos el vehiculo con los datos anteriores
+        easydrive.alquilarVehiculo(matricula, nif, dias);
+        
+        System.out.println(easydrive.toString());
+        
         //Ordenamos clientes y los mostramos por pantalla
-        easydrive.ordenarClientes();
+        easydrive.ordenarCarteraClientes();
         easydrive.imprimirClientes();
         
         //Ordenamos vehiculos y los mostramos por pantalla
-        easydrive.ordenarVehiculos();
+        easydrive.ordenarCatalogoVehiculos();
         easydrive.imprimirVehiculos();
         
         //Hacemos una busqueda de la matricula
@@ -71,7 +58,9 @@ public class Main {
         System.out.println(easydrive.busquedaVehiculo(buscaMatr));
         
         //Hacemos una busqueda de los clientes
-        System.out.println(easydrive.busquedaCliente("85618927C"));
+        System.out.println("Introduce un cliente a buscar: ");
+        String buscaCli=teclado.nextLine();
+        System.out.println(easydrive.busquedaCliente(buscaCli));
         
     }
 }
