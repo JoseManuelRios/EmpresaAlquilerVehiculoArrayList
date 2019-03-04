@@ -6,6 +6,7 @@
 package alquiler;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,17 +22,17 @@ public class Empresa {
     /*Atributos para almacenar el total de clientes que tiene la empresa y array 
     de almacenamiento para los objetos Cliente*/
     private int totalClientes;
-    private Cliente[] clientes;
+    private ArrayList<Cliente> clientes=new ArrayList<>();
     
     /*Atributos para controlar el total de vehiculos disponibles para alquilar en 
     la empresa y array de almacenamiento para los objetos Vehiculo*/
     private int totalVehiculos;
-    private Vehiculo[] vehiculos;
+    private ArrayList<Vehiculo> vehiculos=new ArrayList<>();;
     
     /*Atributos para controlar el histórico de alquileres: total de alquileres 
     realizados y array de almacenamiento para los objetos VehiculoAlquilado*/
     private int totalAlquileres;
-    private VehiculoAlquilado[] alquileres;
+    private ArrayList<VehiculoAlquilado> alquileres=new ArrayList<>();
     
     //Metodos
     /*Constructor parametrizado */
@@ -40,36 +41,35 @@ public class Empresa {
         this.nombre=nombre;
         this.paginaWeb=paginaWeb;
         
-        //Inicialmente la empresa no tiene clientes
+        //Inicialmente la empresa no tiene clientes. No es necesario darle una longitud
+        //a los clientesya que al ser una lista, esta incrementará o disminuirá su capacidad
+        //según introduzcamos clientes o los eliminemos
         this.totalClientes=0;
-        this.clientes=new Cliente[50];
         
         //Inicialmente la empresa no tiene vehiculos
         this.totalVehiculos=0;
-        this.vehiculos=new Vehiculo[50];
         
         //Inicialmente la empresa no tiene alquileres
         this.totalAlquileres=0;
-        this.alquileres=new VehiculoAlquilado[100];
     }
     
     //Método para registrar un cliente
     public void registrarCliente(Cliente nuevo){
-        this.clientes[this.totalClientes]=nuevo;
+        clientes.add(nuevo);
         this.totalClientes++;
     }
     
     //Método para registrar un vehiculo
     public void registrarVehiculo(Vehiculo nuevo){
-        this.vehiculos[this.totalVehiculos]=nuevo;
+        vehiculos.add(nuevo);
         this.totalVehiculos++;
     }
     
     //Método para mostrar los datos de un cliente de la empresa
     public void imprimirClientes() {
         for (int x=0; x<this.totalClientes; x++){
-            System.out.println("NIF: "+clientes[x].getNif()+"\tNombre: "+clientes[x].getNombre()+
-                    "\tApellidos: "+clientes[x].getApellidos());
+            System.out.println("NIF: "+clientes.get(x).getNif()+"\tNombre: "+clientes.get(x).getNombre()+
+                    "\tApellidos: "+clientes.get(x).getApellidos());
         }
     }
     
@@ -77,16 +77,16 @@ public class Empresa {
     public void imprimirVehiculos() {
         System.out.println("Matricula\tModelo\tColor\tImporte\tDisponible\n");
         for (int x=0; x<this.totalVehiculos; x++){
-            System.out.println("Matricula: "+vehiculos[x].getMatricula()+"\tModelo: "+vehiculos[x].getModelo()+
-                    "\tColor: "+vehiculos[x].getColor()+"\tImporte: "+vehiculos[x].getTarifa()+"\tDisponible: "+vehiculos[x].isDisponible());
+            System.out.println("Matricula: "+vehiculos.get(x).getMatricula()+"\tModelo: "+vehiculos.get(x).getModelo()+
+                    "\tColor: "+vehiculos.get(x).getColor()+"\tImporte: "+vehiculos.get(x).getTarifa()+"\tDisponible: "+vehiculos.get(x).isDisponible());
         }
     }
     
     //Metodo para obtener el cliente
     private Cliente getCliente(String nif) {
-        for (int i=0; i<this.getTotalClientes(); i++){
-            if (this.clientes[i].getNif().equals(nif)){
-                return this.clientes[i];
+        for (int x=0; x<this.getTotalClientes(); x++){
+            if (this.clientes.get(x).getNif().equals(nif)){
+                return this.clientes.get(x);
             }
         }
         return null;
@@ -94,22 +94,20 @@ public class Empresa {
     
     //Metodo para obtener el vehiculo
     private Vehiculo getVehiculo(String matricula) {
-        for (int i=0; i<this.getTotalVehiculos(); i++){
-            if (this.vehiculos[i].getMatricula().equals(matricula))
-                return this.vehiculos[i];
+        for (int x=0; x<this.getTotalVehiculos(); x++){
+            if (this.vehiculos.get(x).getMatricula().equals(matricula))
+                return this.vehiculos.get(x);
             }
         return null;
     }
     
     //Método para alquilar un vehiculo
     public void alquilarVehiculo(String matricula, String nif, int dias){
-        Cliente cliente = getCliente(nif);
-        Vehiculo vehiculo = getVehiculo(matricula);
-        if (vehiculo.isDisponible()) {
+        Cliente cliente=getCliente(nif);
+        Vehiculo vehiculo=getVehiculo(matricula);
+        if (vehiculo.isDisponible()){
             vehiculo.setDisponible(false);
-            this.alquileres[this.totalAlquileres]=new VehiculoAlquilado(cliente, vehiculo, diaHoy(),
-            mesHoy(), anioHoy(), dias);
-            this.totalAlquileres++;
+            this.alquileres.add(new VehiculoAlquilado(cliente, vehiculo, diaHoy(), mesHoy(), anioHoy(), dias));
         }
     }
     
@@ -126,27 +124,27 @@ public class Empresa {
     
     public void generarVehiculosAlea(){
         for(int x=0;x<50;x++){
-            this.vehiculos[x]=new Vehiculo();
+            this.vehiculos.add(new Vehiculo());
         }
         this.totalVehiculos=50;
     }
     
     public void generarClientesAlea(){
         for(int x=0;x<50;x++){
-            this.clientes[x]=new Cliente();
+            this.clientes.add(new Cliente());
         }
         this.totalClientes=50;
     }
     
     //Método para ordenar clientes del array por medio de la burbuja
     public void ordenarClientes(){
-        for(int x=0;x<this.clientes.length-1;x++){
-            for(int y=x+1;y<this.clientes.length;y++){
-                if(clientes[x].getNif().compareTo(clientes[y].getNif())>0){
+        for(int x=0;x<this.clientes.size()-1;x++){
+            for(int y=x+1;y<this.clientes.size();y++){
+                if(clientes.get(x).getNif().compareTo(clientes.get(y).getNif())>0){
                     Cliente tmp;
-                    tmp=clientes[x];
-                    clientes[x]=clientes[y];
-                    clientes[y]=tmp;
+                    tmp=clientes.get(x);
+                    clientes.set(x,clientes.get(y));
+                    clientes.set(y, tmp);
                 }
             }
         }
@@ -154,13 +152,13 @@ public class Empresa {
     
     //Método para ordenar vehiculos del array por medio de la burbuja
     public void ordenarVehiculos(){
-        for(int x=0;x<this.vehiculos.length-1;x++){
-            for(int y=x+1;y<vehiculos.length;y++){
-                if(vehiculos[x].getMatricula().compareTo(vehiculos[y].getMatricula())>0){
+        for(int x=0;x<this.vehiculos.size()-1;x++){
+            for(int y=x+1;y<vehiculos.size();y++){
+                if(vehiculos.get(x).getMatricula().compareTo(vehiculos.get(y).getMatricula())>0){
                     Vehiculo tmp;
-                    tmp=vehiculos[x];
-                    vehiculos[x]=vehiculos[y];
-                    vehiculos[y]=tmp;
+                    tmp=vehiculos.get(x);
+                    vehiculos.set(x,vehiculos.get(y));
+                    vehiculos.set(y, tmp);
                 }
             }
         }
@@ -170,13 +168,13 @@ public class Empresa {
     public int busquedaCliente(String nif){
         int mitad;
         int limiteInferior=0;
-        int limiteSuperior=this.clientes.length-1;
+        int limiteSuperior=this.clientes.size()-1;
         boolean encontrado=false;
         while((limiteInferior<=limiteSuperior)&&(!encontrado)){
             mitad=(limiteInferior+limiteSuperior)/2;
-            if(this.clientes[mitad].getNif()==nif){
+            if(this.clientes.get(mitad).getNif()==nif){
                 return mitad; // ¡encontrado!
-            }else if(this.clientes[mitad].getNif().compareTo(nif)>0){
+            }else if(this.clientes.get(mitad).getNif().compareTo(nif)>0){
                 limiteSuperior=mitad-1; // buscar en la primera mitad
             }else{
                 limiteInferior=mitad+1; // buscar en la segunda mitad
@@ -189,14 +187,13 @@ public class Empresa {
     public int busquedaVehiculo(String matricula){
         int mitad;
         int limiteInferior=0;
-        int limiteSuperior=this.vehiculos.length-1;
-        String busqueda=matricula;
+        int limiteSuperior=this.vehiculos.size()-1;
         boolean encontrado=false;
         while((limiteInferior<=limiteSuperior)&&(!encontrado)){
             mitad=(limiteInferior+limiteSuperior)/2;
-            if(this.vehiculos[mitad].getMatricula()==busqueda){
+            if(this.vehiculos.get(mitad).getMatricula()==matricula){
                 return mitad; // ¡encontrado!
-            }else if(this.vehiculos[mitad].getMatricula().compareTo(busqueda)>0){
+            }else if(this.vehiculos.get(mitad).getMatricula().compareTo(matricula)>0){
                 limiteSuperior=mitad-1; // buscar en la primera mitad
             }else{
                 limiteInferior=mitad+1; // buscar en la segunda mitad
@@ -238,11 +235,11 @@ public class Empresa {
         this.totalClientes = totalClientes;
     }
 
-    public Cliente[] getClientes() {
+    public ArrayList<Cliente> getClientes() {
         return clientes;
     }
 
-    public void setClientes(Cliente[] clientes) {
+    public void setClientes(ArrayList<Cliente> clientes) {
         this.clientes = clientes;
     }
 
@@ -254,11 +251,11 @@ public class Empresa {
         this.totalVehiculos = totalVehiculos;
     }
 
-    public Vehiculo[] getVehiculos() {
+    public ArrayList<Vehiculo> getVehiculos() {
         return vehiculos;
     }
 
-    public void setVehiculos(Vehiculo[] vehiculos) {
+    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
 
@@ -270,11 +267,11 @@ public class Empresa {
         this.totalAlquileres = totalAlquileres;
     }
 
-    public VehiculoAlquilado[] getAlquileres() {
+    public ArrayList<VehiculoAlquilado> getAlquileres() {
         return alquileres;
     }
 
-    public void setAlquileres(VehiculoAlquilado[] alquileres) {
+    public void setAlquileres(ArrayList<VehiculoAlquilado> alquileres) {
         this.alquileres = alquileres;
     } 
     
@@ -294,6 +291,6 @@ public class Empresa {
         LocalDate anio=LocalDate.now();
         anio.getYear();
         return anio;
-    }
+    } 
     
 }
