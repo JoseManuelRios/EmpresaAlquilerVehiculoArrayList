@@ -25,17 +25,17 @@ public class Main {
         easydrive.registrarCliente(new Cliente("67568991Y", "Luis", "Fernández Gómez"));
 
         // registro de los vehículos de la empresa
-        easydrive.registrarVehiculo(new Vehiculo("4060 TUR", "Skoda", "Fabia", "Blanco", 90.0, false));
+        easydrive.registrarVehiculo(new Vehiculo("4060TUR", "Skoda", "Fabia", "Blanco", 90.0, false));
 
-        easydrive.registrarVehiculo(new Vehiculo("4070 DEP", "Ford", "Mustang",
+        easydrive.registrarVehiculo(new Vehiculo("4070DEP", "Ford", "Mustang",
 
         "Rojo", 150.0, true));
 
-        easydrive.registrarVehiculo(new Vehiculo("4080 TUR", "VW", "GTI", "Azul", 110.0, false));
+        easydrive.registrarVehiculo(new Vehiculo("4080TUR", "VW", "GTI", "Azul", 110.0, false));
 
-        easydrive.registrarVehiculo(new Vehiculo("4090 TUR", "SEAT", "Ibiza", "Blanco", 90.0, false));
+        easydrive.registrarVehiculo(new Vehiculo("4090TUR", "SEAT", "Ibiza", "Blanco", 90.0, false));
 
-        easydrive.registrarVehiculo(new Vehiculo("4100 FUR", "Fiat", "Ducato", "Azul", 80.0, true));
+        easydrive.registrarVehiculo(new Vehiculo("4100FUR", "Fiat", "Ducato", "Azul", 80.0, true));
         
         // imprime la relación de clientes de easydrive
         easydrive.imprimirClientes();
@@ -73,9 +73,6 @@ public class Main {
         //Hacemos una busqueda de los clientes
         System.out.println(easydrive.busquedaCliente("85618927C"));
         
-        //Alquilamos un vehiculo pasandole un cliente, un vehiculo y el número
-        //de días que se alquila
-        easydrive.alquilarVehiculo(v1.getMatricula(), c1.getNif(), 10);
     }
 }
    
