@@ -110,6 +110,13 @@ public class Empresa {
             this.alquileres.add(new VehiculoAlquilado(cliente, vehiculo, diaHoy(), mesHoy(), anioHoy(), dias));
         }
     }
+
+    @Override
+    public String toString() {
+        return "alquileres=" + alquileres;
+    }
+    
+    
     
     //Metodo para poner un vehiculo a estado disponible para alquilar
     public void recibirVehiculo(String matricula) {
@@ -123,21 +130,21 @@ public class Empresa {
     }
     
     public void generarVehiculosAlea(){
-        for(int x=0;x<50;x++){
+        for(int x=0;x<25;x++){
             this.vehiculos.add(new Vehiculo());
         }
-        this.totalVehiculos=50;
+        this.totalVehiculos=25;
     }
     
     public void generarClientesAlea(){
-        for(int x=0;x<50;x++){
+        for(int x=0;x<25;x++){
             this.clientes.add(new Cliente());
         }
-        this.totalClientes=50;
+        this.totalClientes=25;
     }
     
     //Método para ordenar clientes del array por medio de la burbuja
-    public void ordenarClientes(){
+    public void ordenarCarteraClientes(){
         for(int x=0;x<this.clientes.size()-1;x++){
             for(int y=x+1;y<this.clientes.size();y++){
                 if(clientes.get(x).getNif().compareTo(clientes.get(y).getNif())>0){
@@ -151,7 +158,7 @@ public class Empresa {
     }
     
     //Método para ordenar vehiculos del array por medio de la burbuja
-    public void ordenarVehiculos(){
+    public void ordenarCatalogoVehiculos(){
         for(int x=0;x<this.vehiculos.size()-1;x++){
             for(int y=x+1;y<vehiculos.size();y++){
                 if(vehiculos.get(x).getMatricula().compareTo(vehiculos.get(y).getMatricula())>0){
