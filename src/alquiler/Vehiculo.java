@@ -5,7 +5,7 @@
  */
 package alquiler;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -36,41 +36,86 @@ public class Vehiculo {
     public Vehiculo(){
         Random aleatorio=new Random();
         
-        char[] matricula=new char[7];
-        String[] marca={"Subaru", "Audi", "Chevrolet", "Peugeot", "Mitsubishi", "Seat", "Opel", "Nissan", "Lexus", "Citroen", "Ferrari", "Porsche", "BMW", "Volkswagen"};
-        String[] modelo={"1500", "Piara", "Palmera", "350c", "G7", "Estepona", "Mar Azul", "307", "Borrasca", "Canon", "Horse", "AMG", "Enzo", "Veneno", "Forest"};
-        String[] color={"Azul", "Verde", "Rojo", "Amarillo", "Blanco", "Negro", "Plateado", "Rosa", "Marron", "Violeta", "Naranja", "Cian", "Gris"};
+        ArrayList<Character> matricula=new ArrayList();
+        ArrayList<String> marca=new ArrayList();
+        marca.add("Subaru");
+        marca.add("Audi");
+        marca.add("Chevrolet");
+        marca.add("Peugeot");
+        marca.add("Mitsubishi");
+        marca.add("Seat");
+        marca.add("Opel");
+        marca.add("Nissan");
+        marca.add("Lexus");
+        marca.add("Citroen");
+        marca.add("Ferrari");
+        marca.add("Porsche");
+        marca.add("BMW");
+        marca.add("Volkswagen");
+        
+        ArrayList<String> modelo=new ArrayList();
+        modelo.add("1500");
+        modelo.add("Piara");
+        modelo.add("Palmera");
+        modelo.add("350c");
+        modelo.add("G7");
+        modelo.add("Estepona");
+        modelo.add("Mar azul");
+        modelo.add("307");
+        modelo.add("Borrasca");
+        modelo.add("Canon");
+        modelo.add("Horse");
+        modelo.add("AMG");
+        modelo.add("Enzo");
+        modelo.add("Veneno");
+        modelo.add("Forest");
+        
+        ArrayList<String> color=new ArrayList();
+        color.add("Azul");
+        color.add("Verde");
+        color.add("Rojo");
+        color.add("Amarillo");
+        color.add("Blanco");
+        color.add("Negro");
+        color.add("Plateado");
+        color.add("Rosa");
+        color.add("Marrón");
+        color.add("Violeta");
+        color.add("Naranja");
+        color.add("Cian");
+        color.add("Gris");
+        
         int tarifa;
         boolean disponible;
         int numAlea;
         int letraAlea;
         
         //Bucle para ponerle los numeros a la matricula
-        for(int x=0;x<matricula.length-3;x++){
+        for(int x=0;x<4;x++){
             numAlea=aleatorio.nextInt(10)+48;
-            matricula[x]=(char) numAlea;
+            matricula.add((char)numAlea);
         }
         
         //Bucle para ponerla las letras a la matricula
-        for(int x=4;x<matricula.length;x++){
+        for(int x=4;x<7;x++){
             letraAlea=aleatorio.nextInt(25)+65;
-            matricula[x]=(char)letraAlea;
+            matricula.add((char)letraAlea);
         }
         
         this.matricula="";
-        for(int x=0;x<matricula.length;x++){
-            this.matricula=this.matricula+matricula[x];
+        for(int x=0;x<matricula.size();x++){
+            this.matricula=this.matricula+matricula.get(x);
         }
         
-        int marcaAlea=aleatorio.nextInt(marca.length-1);
-        int modeloAlea=aleatorio.nextInt(modelo.length-1);
-        int colorAlea=aleatorio.nextInt(color.length-1);
+        int marcaAlea=aleatorio.nextInt(marca.size()-1);
+        int modeloAlea=aleatorio.nextInt(modelo.size()-1);
+        int colorAlea=aleatorio.nextInt(color.size()-1);
         tarifa=aleatorio.nextInt(250)+50;
         disponible=aleatorio.nextBoolean();
         
-        this.marca=marca[marcaAlea];
-        this.modelo=modelo[modeloAlea];
-        this.color=color[colorAlea];
+        this.marca=marca.get(marcaAlea);
+        this.modelo=modelo.get(modeloAlea);
+        this.color=color.get(colorAlea);
         this.tarifa=tarifa;
         this.disponible=disponible;
     }
